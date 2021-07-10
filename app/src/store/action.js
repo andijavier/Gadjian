@@ -1,30 +1,26 @@
-export const SET_INFO = 'info/setInfo'
-export const SET_INFO_ERR = 'infoErr/setInfoErr'
-export const SET_INFO_LOADING = 'infoLoading/setInfoLoading'
+export const SET_DATA = 'data/setData'
+export const SET_DATA_LOADING = 'dataLoading/setDataLoading'
 
-export function setInfo(payload) {
-  return { type: SET_INFO, payload: payload }
+export function setData (payload) {
+  return { type: SET_DATA, payload: payload }
 }
-export function setInfoErr(payload) {
-  return { type: SET_INFO_ERR, payload: payload }
-}
-export function setInfoLoading(payload) {
-  return { type: SET_INFO_LOADING, payload: payload }
+export function setDataLoading (payload) {
+  return { type: SET_DATA_LOADING, payload: payload }
 }
 
-export function fetchInfo() {
+export function fetchData () {
   return function (dispatch) {
-    dispatch(setInfoLoading(true))
-    fetch(`https://randomuser.me/api/?results=28`)
-    .then(res => res.json())
-    .then(response => {
-      dispatch(setInfo(response.results))
-    })
-    .catch(err => {
-      console.error(err);
-    })
-    .finally(() => {
-      dispatch(setInfoLoading(false))
-    })
+    dispatch(setDataLoading(true))
+    fetch('https://randomuser.me/api/?results=28')
+      .then(res => res.json())
+      .then(res => {
+        dispatch(setData(res.results))
+      })
+      .catch(err => {
+        console.error(err);
+      })
+      .finally(() => {
+        dispatch(setDataLoading(false))
+      })
   }
 }
